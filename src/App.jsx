@@ -3,7 +3,6 @@ import React from 'react'
 import './App.css'
 import "react-datepicker/dist/react-datepicker.css";
 
-import Container from './components/Container'
 import ProfileForm from './components/ProfileForm'
 import Table from './components/Table';
 
@@ -16,8 +15,8 @@ function App() {
     name: 'Name',
     email: 'Email',
     birthdate: 'Birthdate',
-    educationLevel: 'Education Level',
-    gender: 'Gender'
+    educationLevel: 'Education',
+    gender: 'Gender',
   }
   return (
     <>
@@ -27,6 +26,7 @@ function App() {
         columnOrder={profileTableColumnOrder}
         tableKeys={profileTableKeys}
         data={profileTable}
+        setTableData={setProfileTable}
       />
       {/* <Container /> */}
     </>

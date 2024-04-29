@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Table = ({ captionText, columnOrder, tableKeys, data }) => {
+const Table = ({ captionText, columnOrder, tableKeys, data, setTableData }) => {
     if (!data.length) {
         return
     }
@@ -19,9 +19,25 @@ const Table = ({ captionText, columnOrder, tableKeys, data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row, index) => (
-                        <tr key={index}>
+                    {data.map((row, dataIndex) => (
+                        <tr key={dataIndex}>
                             {columnOrder.map((cell, index) => {
+                                if (index === columnOrder.length - 1) {
+                                    return (
+                                        <td key={index}>
+                                            <button onClick={() => {
+                                                let newData = [...data]
+                                                newData = newData.slice(
+                                                    0, dataIndex
+                                                ).concat(
+                                                    newData.slice(dataIndex + 1)
+                                                )
+                                                setTableData(newData)
+                                            }}>Delete</button>
+                                        </td>
+                                    )
+                                }
+
                                 const dataPoint = row[cell]
                                 if (Object.prototype.toString.call(dataPoint) === '[object Date]') {
                                     return < td key={index} > {dataPoint.toDateString()}</td>
@@ -36,33 +52,7 @@ const Table = ({ captionText, columnOrder, tableKeys, data }) => {
                             })}
                         </tr>
                     ))}
-                    {/* <tr>
-                        <th scope="row">Chris</th>
-                        <td>HTML tables</td>
-                        <td>22</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Dennis</th>
-                        <td>Web accessibility</td>
-                        <td>45</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Sarah</th>
-                        <td>JavaScript frameworks</td>
-                        <td>29</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Karen</th>
-                        <td>Web performance</td>
-                        <td>36</td>
-                    </tr> */}
                 </tbody>
-                {/* <tfoot>
-                    <tr>
-                        <th scope="row" colspan="2">Average age</th>
-                        <td>33</td>
-                    </tr>
-                </tfoot> */}
             </table>
         </div >
     )
