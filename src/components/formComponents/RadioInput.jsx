@@ -2,7 +2,6 @@ import React from 'react'
 
 const RadioInput = ({ className, inputLabel, radioOptions, selectedValue, setSelectedValue }) => {
     return (
-
         <div className={className}>
             <label>
                 <strong>

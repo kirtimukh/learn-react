@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     name: '',
     email: '',
-    birthdate: new Date(),
+    birthdate: '',
     gender: '',
     profilePicture: '',
     educationLevel: '',
@@ -16,15 +16,18 @@ const userProfileSlice = createSlice({
     initialState,
     reducers: {
         setName: (state, action) => {
+            console.log('reName', action.payload)
             state.name = action.payload;
         },
         setEmail: (state, action) => {
             state.email = action.payload;
         },
         setBirthdate: (state, action) => {
+            console.log('reDate', action.payload)
             state.birthdate = action.payload;
         },
         setGender: (state, action) => {
+            console.log('reGen', action.payload)
             state.gender = action.payload;
         },
         setProfilePicture: (state, action) => {
@@ -33,9 +36,17 @@ const userProfileSlice = createSlice({
         setEducationLevel: (state, action) => {
             state.educationLevel = action.payload;
         },
+        resetForm: (state) => {
+            state = initialState;
+        }
     },
 });
 
 // Export the actions and the reducer
-export const { setName, setEmail, setBirthdate, setGender, setProfilePicture, setEducationLevel } = userProfileSlice.actions;
+export const {
+    setName,
+    setEmail,
+    setBirthdate,
+    setGender,
+    setProfilePicture, setEducationLevel, resetForm } = userProfileSlice.actions;
 export default userProfileSlice.reducer;

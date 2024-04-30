@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     DateInput,
     FileInput,
@@ -9,12 +9,51 @@ import {
 
 import Button from './Button';
 
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    setName,
+    setEmail,
+    setBirthdate,
+    setGender,
+    setProfilePicture,
+    setEducationLevel,
+    resetForm
+} from '../state/profileStore';
+
 
 const ProfileForm = ({ setProfileTable }) => {
-    const [name, setName] = React.useState('')
-    const [email, setEmail] = React.useState('')
-    const [birthdate, setBirthdate] = React.useState(new Date())
-    const [gender, setGender] = React.useState('')
+    const dispatch = useDispatch();
+
+    const name = useSelector((state) => state.userProfile.name)
+    const email = useSelector((state) => state.userProfile.email)
+    const birthdate = useSelector((state) => state.userProfile.birthdate)
+    const gender = useSelector((state) => state.userProfile.gender)
+    const profilePicture = useSelector((state) => state.userProfile.profilePicture)
+    const educationLevel = useSelector((state) => state.userProfile.educationLevel)
+
+    useEffect(() => {
+    }, [name, email, birthdate, gender, profilePicture, educationLevel])
+
+    const nameSetter = (value) => {
+        dispatch(setName(value))
+    }
+    const emailSetter = (value) => {
+        dispatch(setEmail(value))
+    }
+    const birthdateSetter = (value) => {
+        dispatch(setBirthdate(value))
+    }
+    const genderSetter = (value) => {
+        dispatch(setGender(value))
+    }
+    const profilePictureSetter = (value) => {
+        dispatch(setProfilePicture(value))
+    }
+    const educationLevelSetter = (value) => {
+        dispatch(setEducationLevel(value))
+    }
+
+
     const genderOptions = [
         {
             id: 'male',
@@ -32,10 +71,6 @@ const ProfileForm = ({ setProfileTable }) => {
             label: 'other',
         }
     ]
-
-    const [profilePicture, setProfilePicture] = React.useState('')
-
-    const [educationLevel, setEducationLevel] = React.useState('')
     const educationLevelOptions = [
         {
             value: '10th',
@@ -59,17 +94,15 @@ const ProfileForm = ({ setProfileTable }) => {
         }
     ]
 
-    const resetData = () => {
-        setName('')
-        setEmail('')
-        setBirthdate(new Date())
-        setGender('')
-        setProfilePicture('')
-        setEducationLevel('')
-    }
-
     const addToProfileTable = () => {
-        if (name === '' || email === '' || gender === '' || educationLevel === '' || birthdate === '' || profilePicture === '') return
+        if (
+            name === ''
+            || email === ''
+            || gender === ''
+            || educationLevel === ''
+            || birthdate === ''
+            || profilePicture === ''
+        ) return
 
         const profile = {
             name,
@@ -80,7 +113,7 @@ const ProfileForm = ({ setProfileTable }) => {
             educationLevel,
         }
         setProfileTable((prevProfileTable) => [...prevProfileTable, profile])
-        resetData()
+        dispatch(resetForm())
     }
 
     const commonClassName = 'flex justify-between'
@@ -97,7 +130,7 @@ const ProfileForm = ({ setProfileTable }) => {
                         textType='text'
                         placeholder='md luffy'
                         textValue={name}
-                        onChangeHandler={setName}
+                        onChangeHandler={nameSetter}
                     />
                     <TextInput
                         inputLabel='Email'
@@ -105,32 +138,32 @@ const ProfileForm = ({ setProfileTable }) => {
                         className={commonClassName}
                         placeholder='luffy@sunny.op'
                         textValue={email}
-                        onChangeHandler={setEmail}
+                        onChangeHandler={emailSetter}
                     />
                     <DateInput
                         className={commonClassName}
                         inputLabel='Birthdate'
                         selectedValue={birthdate}
-                        setSelectedValue={setBirthdate}
+                        setSelectedValue={birthdateSetter}
                     />
                     <RadioInput
                         className={commonClassName}
                         inputLabel='Gender'
                         radioOptions={genderOptions}
                         selectedValue={gender}
-                        setSelectedValue={setGender}
+                        setSelectedValue={genderSetter}
                     />
                     <FileInput
                         inputLabel='Profile Picture'
                         className={commonClassName}
                         validExtensions={['jpeg', 'png', 'webp']}
-                        handleFile={setProfilePicture}
+                        handleFile={profilePictureSetter}
                     />
                     <SelectInput
                         className={commonClassName}
                         inputLabel='Education Level'
                         selectOptions={educationLevelOptions}
-                        selectHandler={setEducationLevel}
+                        selectHandler={educationLevelSetter}
                     />
                 </div>
                 <div className='spacer h-5 w-full'></div>
