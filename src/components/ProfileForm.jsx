@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     DateInput,
     FileInput,
@@ -10,7 +10,7 @@ import {
 import Button from './Button';
 
 
-const ProfileForm = ({ setProfileTable }) => {
+const ProfileForm = ({ setProfileTable, dataToEdit, setDataToEdit }) => {
     const [name, setName] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [birthdate, setBirthdate] = React.useState(new Date())
@@ -35,7 +35,7 @@ const ProfileForm = ({ setProfileTable }) => {
 
     const [profilePicture, setProfilePicture] = React.useState('')
 
-    const [educationLevel, setEducationLevel] = React.useState('')
+    const [educationLevel, setEducationLevel] = React.useState('10th')
     const educationLevelOptions = [
         {
             value: '10th',
@@ -65,7 +65,7 @@ const ProfileForm = ({ setProfileTable }) => {
         setBirthdate(new Date())
         setGender('')
         setProfilePicture('')
-        setEducationLevel('')
+        setEducationLevel('10th')
     }
 
     const addToProfileTable = () => {
@@ -84,6 +84,37 @@ const ProfileForm = ({ setProfileTable }) => {
     }
 
     const commonClassName = 'flex justify-between'
+
+    useEffect(() => {
+        if (Object.keys(dataToEdit).length) {
+            setName(dataToEdit.name)
+            setEmail(dataToEdit.email)
+            setBirthdate(dataToEdit.birthdate)
+            setGender(dataToEdit.gender)
+            setProfilePicture(dataToEdit.profilePicture)
+            setEducationLevel(dataToEdit.educationLevel)
+        }
+    }, [dataToEdit])
+
+    const editProfileData = () => {
+        if (name === '' || email === '' || gender === '' || educationLevel === '' || birthdate === '' || profilePicture === '') return
+
+        const profile = {
+            name,
+            email,
+            birthdate,
+            profilePicture,
+            gender,
+            educationLevel,
+        }
+        setProfileTable((prevProfileTable) => {
+            const newData = [...prevProfileTable]
+            newData[dataToEdit.editIndex] = profile
+            return newData
+        })
+        setDataToEdit({})
+        resetData()
+    }
 
     return (
         <div className='flex justify-center'>
@@ -134,8 +165,10 @@ const ProfileForm = ({ setProfileTable }) => {
                     />
                 </div>
                 <div className='spacer h-5 w-full'></div>
+
                 <div>
-                    <Button label='Submit' handler={addToProfileTable} />
+                    {Object.keys(dataToEdit).length ? <Button label='Edit' handler={editProfileData} /> : <Button label='Submit' handler={addToProfileTable} />}
+
                 </div>
             </div>
         </div>

@@ -18,15 +18,23 @@ function App() {
     educationLevel: 'Education',
     gender: 'Gender',
   }
+
+  const [dataToEdit, setDataToEdit] = React.useState({})
+
+  const dataEditor = {
+    dataToEdit, setDataToEdit
+  }
+
   return (
     <>
-      <ProfileForm setProfileTable={setProfileTable} />
+      <ProfileForm setProfileTable={setProfileTable} {...dataEditor} />
       <Table
         captionText={profileTableCaption}
         columnOrder={profileTableColumnOrder}
         tableKeys={profileTableKeys}
         data={profileTable}
         setTableData={setProfileTable}
+        setDataToEdit={setDataToEdit}
       />
       {/* <Container /> */}
     </>

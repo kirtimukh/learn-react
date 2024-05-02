@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Table = ({ captionText, columnOrder, tableKeys, data, setTableData }) => {
+const Table = ({ captionText, columnOrder, tableKeys, data, setTableData, setDataToEdit }) => {
     if (!data.length) {
         return
+    }
+
+    const editData = (dataIndex) => {
+        setDataToEdit({ editIndex: dataIndex, ...data[dataIndex] })
     }
 
     return (
@@ -25,6 +29,10 @@ const Table = ({ captionText, columnOrder, tableKeys, data, setTableData }) => {
                                 if (index === columnOrder.length - 1) {
                                     return (
                                         <td key={index}>
+                                            <button onClick={() => {
+                                                editData(dataIndex)
+                                            }}>Edit</button>
+
                                             <button onClick={() => {
                                                 let newData = [...data]
                                                 newData = newData.slice(
