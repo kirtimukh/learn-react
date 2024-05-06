@@ -41,9 +41,9 @@ const Table = ({ captionText, columnOrder, tableKeys, data, setTableData }) => {
                                 const dataPoint = row[cell]
                                 if (Object.prototype.toString.call(dataPoint) === '[object Date]') {
                                     return < td key={index} > {dataPoint.toDateString()}</td>
-                                } else if (Object.prototype.toString.call(dataPoint) === '[object File]' && dataPoint.type.includes('image')) {
+                                } else if (cell === "profilePicture") {
                                     return < td key={index} >
-                                        <img src={URL.createObjectURL(dataPoint)} alt='profile' className='w-40 h-40' />
+                                        <img src={dataPoint} alt='profile' className='w-40 h-40' />
                                     </td>
                                 }
                                 return (

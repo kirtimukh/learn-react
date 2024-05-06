@@ -18,7 +18,6 @@ const DateInput = ({ className, inputLabel, selectedValue, setSelectedValue }) =
     const [selectedDate, setSelectedDate] = React.useState('')
 
     useEffect(() => {
-        console.log('changed', selectedValue)
         setSelectedDate(dateParser(selectedValue))
     }, [selectedValue])
 
@@ -35,7 +34,6 @@ const DateInput = ({ className, inputLabel, selectedValue, setSelectedValue }) =
                     className='w-4/6'
                     selected={selectedDate}
                     onChange={(date) => {
-                        console.log(`${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`)
                         setSelectedValue(`${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`)
                     }}
                 />

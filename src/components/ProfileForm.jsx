@@ -47,7 +47,8 @@ const ProfileForm = ({ setProfileTable }) => {
         dispatch(setGender(value))
     }
     const profilePictureSetter = (value) => {
-        dispatch(setProfilePicture(value))
+        const fileUrl = URL.createObjectURL(value)
+        dispatch(setProfilePicture(fileUrl))
     }
     const educationLevelSetter = (value) => {
         dispatch(setEducationLevel(value))
@@ -129,7 +130,7 @@ const ProfileForm = ({ setProfileTable }) => {
                         className={commonClassName}
                         textType='text'
                         placeholder='md luffy'
-                        textValue={name}
+                        textValue={useSelector((state) => state.userProfile.name)}
                         onChangeHandler={nameSetter}
                     />
                     <TextInput

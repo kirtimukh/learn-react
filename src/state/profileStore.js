@@ -1,13 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const todayDate = () => {
+    const today = new Date();
+    return `${today.getFullYear()} ${today.getMonth()} ${today.getDate()}`;
+};
+
 // Define the initial state
 const initialState = {
     name: '',
     email: '',
-    birthdate: '',
+    birthdate: todayDate(),
     gender: '',
     profilePicture: '',
-    educationLevel: '',
+    educationLevel: '10th',
 };
 
 // Create a slice for the user profile form
@@ -16,18 +21,15 @@ const userProfileSlice = createSlice({
     initialState,
     reducers: {
         setName: (state, action) => {
-            console.log('reName', action.payload)
             state.name = action.payload;
         },
         setEmail: (state, action) => {
             state.email = action.payload;
         },
         setBirthdate: (state, action) => {
-            console.log('reDate', action.payload)
             state.birthdate = action.payload;
         },
         setGender: (state, action) => {
-            console.log('reGen', action.payload)
             state.gender = action.payload;
         },
         setProfilePicture: (state, action) => {
@@ -37,7 +39,9 @@ const userProfileSlice = createSlice({
             state.educationLevel = action.payload;
         },
         resetForm: (state) => {
+            console.log('resetting form');
             state = initialState;
+            console.log('state', state);
         }
     },
 });
