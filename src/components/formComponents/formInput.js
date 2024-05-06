@@ -3,6 +3,7 @@ import FileInput from "./FileInput";
 import RadioInput from "./RadioInput";
 import SelectInput from "./SelectInput";
 import TextInput from "./TextInput";
+import TimeInput from "./TimeInput";
 
 
 export {
@@ -10,5 +11,6 @@ export {
     FileInput,
     RadioInput,
     SelectInput,
-    TextInput
+    TextInput,
+    TimeInput
 }

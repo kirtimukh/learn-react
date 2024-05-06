@@ -11,9 +11,7 @@ const DateInput = ({ className, inputLabel, selectedValue, setSelectedValue }) =
                 </strong>
                 <span>&nbsp; &nbsp;</span>
             </label>
-            <div className='w-4/6'>
-                <DatePicker className='w-4/6' selected={selectedValue} onChange={(date) => setSelectedValue(date)} />
-            </div>
+            <DatePicker wrapperClassName="w-28" className="w-28" selected={selectedValue} onChange={(date) => setSelectedValue(date)} />
         </div>
     )
 }

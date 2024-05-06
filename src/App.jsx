@@ -3,7 +3,9 @@ import React from 'react'
 import './App.css'
 import "react-datepicker/dist/react-datepicker.css";
 
+import Navbar from './components/Navbar'
 import ProfileForm from './components/ProfileForm'
+import ReminderForm from './components/ReminderForm'
 import Table from './components/Table';
 
 function App() {
@@ -25,18 +27,26 @@ function App() {
     dataToEdit, setDataToEdit
   }
 
+  const [formView, setFormView] = React.useState('profiler')
+
   return (
     <>
-      <ProfileForm setProfileTable={setProfileTable} {...dataEditor} />
-      <Table
-        captionText={profileTableCaption}
-        columnOrder={profileTableColumnOrder}
-        tableKeys={profileTableKeys}
-        data={profileTable}
-        setTableData={setProfileTable}
-        setDataToEdit={setDataToEdit}
-      />
-      {/* <Container /> */}
+      <Navbar formView={formView} setFormView={setFormView} />
+      {formView === 'profiler' ?
+        <>
+          <ProfileForm setProfileTable={setProfileTable} {...dataEditor} />
+          <Table
+            captionText={profileTableCaption}
+            columnOrder={profileTableColumnOrder}
+            tableKeys={profileTableKeys}
+            data={profileTable}
+            setTableData={setProfileTable}
+            setDataToEdit={setDataToEdit}
+          />
+        </>
+        :
+        <ReminderForm />
+      }
     </>
   )
 }

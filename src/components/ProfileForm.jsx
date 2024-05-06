@@ -160,6 +160,7 @@ const ProfileForm = ({ setProfileTable, dataToEdit, setDataToEdit }) => {
                     <SelectInput
                         className={commonClassName}
                         inputLabel='Education Level'
+                        labelInside={false}
                         selectOptions={educationLevelOptions}
                         selectHandler={setEducationLevel}
                     />
